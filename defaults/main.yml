@@ -1,0 +1,6 @@
+---
+
+beanstool_version: 0.2.0
+beanstool_file_name: "beanstool_v{{ beanstool_version }}_linux_amd64"
+beanstool_file_path: "{{ beanstool_file_name}}.tar.gz"
+beanstool_src_url: "https://github.com/src-d/beanstool/releases/download/v{{ beanstool_version }}/{{ beanstool_file_path }}"

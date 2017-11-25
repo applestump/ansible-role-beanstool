@@ -1,0 +1,35 @@
+---
+
+- stat: path=/usr/local/bin/beanstool
+  register: beanstalk_installed
+
+- name: Download Beanstool source
+  get_url:
+    url: "{{ beanstool_src_url }}"
+    dest: /tmp
+  when: beanstalk_installed.stat.exists == False
+
+- name: Extract beanstool.tgz
+  unarchive:
+    src: "/tmp/{{ beanstool_file_path }}"
+    dest: /tmp
+  when: beanstalk_installed.stat.exists == False  
+
+- name: Copy beanstool to /usr/local/bin
+  copy:
+    src: "/tmp/{{ beanstool_file_name }}/beanstool"
+    dest: /usr/local/bin/
+    mode: +x
+  when: beanstalk_installed.stat.exists == False    
+
+- name: Cleanup unarchived directory
+  file:
+    path: "/tmp/{{ beanstool_file_name }}"
+    state: absent
+  when: beanstalk_installed.stat.exists == False  
+  
+- name: Cleanup download
+  file:
+    path: "/tmp/{{ beanstool_file_path }}"
+    state: absent
+  when: beanstalk_installed.stat.exists == False    

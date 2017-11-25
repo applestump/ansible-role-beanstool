@@ -1,0 +1,6 @@
+---
+- hosts: all
+
+  roles:
+    - vpeltot.beanstalkd
+    - role_under_test
